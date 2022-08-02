@@ -1,0 +1,154 @@
+body {
+    background-color: #111111;
+    color: white;
+    font-family: "Calibri", sans-serif;
+    margin: 0;
+}
+/* Header */
+
+.header {
+    align-items: center;
+    background-color: #2d4a60;
+    //background: linear-gradient(#000000, transparent);
+    display: inline-flex;
+    height: 80px;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+}
+
+.header-logo img {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 70%;
+}
+
+.nav_bar {
+    display: flex;
+    list-style: none;
+    margin-right: 10px;
+}
+
+.nav a {
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    margin-right: 20%;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.nav a:hover {
+    font-weight: bold;
+}
+/* Best movie */
+.best {
+    background-size: cover;
+    padding: 150px 200px 180px 200px;
+    }
+.best-movie-title {
+    font-size: 45px;
+}
+
+.button {
+    font-size: 18px;
+    width: 100px;
+}
+
+.best-movie-description p {
+    font-style: italic;
+    line-height: 180%;
+    margin-right: 60%;
+    margin-top: 3%;
+}
+
+.best-cover img {
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+    float: right;
+    max-width: 280px;
+    min-width: 200px;
+    width: 50%;
+    margin-right: 13%;
+
+}
+
+/* Modal */
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    /*background-color: #888851;*/
+    display: none;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.modal-content {
+    background-color: #2d4a60;
+    border-radius: 10px;
+    margin: 5% auto;
+    max-width: 1500px;
+    min-height: 350px;
+    padding: 30px 30px 60px 30px;
+    width: 80%;
+}
+
+.modal-cover-image img {
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
+    float: right;
+    height: 340px;
+    margin-right: 120px;
+    margin-top: 1%;
+}
+.modal_header {
+    width: 300px;
+    height: 90px;
+}
+.modal-content h3 {
+    display: inline-block;
+    font-size: 38px;
+}
+
+.modal-button {
+    font-size: 14px;
+    margin-left: 30px;
+    width: 80px;
+}
+
+.modal-movie-info {
+    font-size: 15px;
+    margin-left: 30px;
+    margin-right: 40%;
+}
+.metadata {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-content p {
+    display: inline;
+    line-height: 150%;
+}
+
+strong {
+    color: gold;
+}
+
+.plot {
+    font-style: italic;
+}
+
+.close {
+    float: right;
+    font-size: 52px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: gold;
+    cursor: pointer;
+    text-decoration: none;
+}

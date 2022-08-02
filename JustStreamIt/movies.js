@@ -82,7 +82,7 @@ function ModalData(id) {
             if (regExp.test(data["long_description"]))
                 document.getElementById('modal-desc').innerHTML = data["long_description"];
             else
-                document.getElementById('modal-desc').innerHTML = "N/A";  // placeholder for missing description
+                document.getElementById('modal-desc').innerHTML = "N/A";
 
         })
 }

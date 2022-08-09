@@ -1,6 +1,5 @@
 const mainUrl = "http://localhost:8000/api/v1/titles/"
 
-BestMovie()
 
 // Best movie
 
@@ -86,3 +85,98 @@ function ModalData(id) {
 
         })
 }
+// Categories
+
+async function Categories(name, skip, total = 7) {
+
+    const results = await fetch(mainUrl + "?sort_by=-imdb_score&genre=" + name);
+
+    if (!results.ok)
+        return
+    const data = await results.json();
+    let moviesData = Array(...data.results);
+
+    if (skip > 0)
+        moviesData.splice(0, skip);
+
+    if (moviesData.length < total) {
+        let results2 = await (await fetch(data.next)).json();
+        moviesData.push(...Array(...results2.results).slice(0, total - moviesData.length));
+    }
+
+    return moviesData;
+}
+
+async function buildCarousel(category, name, skip = 0) {
+
+    let cat_name = name;
+    if (name === "best")
+        cat_name = "";
+
+    const section = document.createElement("section")
+    section.classList.add("categories")
+
+    const carousel = document.createElement('div');
+    carousel.classList.add('container');
+
+    const categoryTitle = document.createElement('h2');
+    categoryTitle.innerHTML = "Films les mieux notés";
+    carousel.append(categoryTitle);
+
+    const carouselContainer = document.createElement('div');
+    carouselContainer.classList.add('carousel-container');
+
+    const carouselContent = document.createElement('div');
+    carouselContent.classList.add('carousel-content');
+    carouselContent.setAttribute("id", `${name}-movies`)
+
+    document.querySelector('.carousels').appendChild(section);
+
+    const movies = await Categories(cat_name, skip);
+
+    let i = 0;
+    for (const movie of movies) {
+        const box = document.createElement('div');
+        box.classList.add("box");
+        box.setAttribute("id", `${cat_name}${i + 1}`);
+
+        const movieCover = document.createElement("img");
+        movieCover.setAttribute("alt", movie.title);
+        movieCover.src = movie.image_url;
+        box.appendChild(movieCover);
+
+        const overlay = document.createElement("div");
+        overlay.classList.add("overlay");
+
+        const movieTitle = document.createElement("p");
+        movieTitle.innerHTML = movie.title;
+        overlay.appendChild(movieTitle);
+
+        const modalButton = document.createElement("button");
+        modalButton.classList.add("overlay-button");
+        modalButton.setAttribute("onclick", `openModal("${movie.id}")`);
+        modalButton.innerHTML = "Infos";
+        overlay.appendChild(modalButton);
+
+        box.appendChild(overlay);
+        carouselContent.appendChild(box);
+
+        i++;
+    }
+
+    const controls = document.createElement("div");
+
+
+    carouselContainer.appendChild(carouselContent);
+    carouselContainer.appendChild(controls);
+
+    carousel.appendChild(carouselContainer);
+    section.appendChild(carousel);
+}
+
+    window.addEventListener('load', () => {
+    buildCarousel("Best-rated", "best", 0);
+
+
+    BestMovie()
+});

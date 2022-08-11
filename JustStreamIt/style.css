@@ -193,15 +193,15 @@ strong {
 }
 
 .box {
-    margin-right: 10px;
-    width: 140px;
+    margin-right: 70px;
+    width: 200px;
 }
 
 .box img {
     border-radius: 10px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
     transition: .5s ease;
-    width: 140px;
+    width: 240px;
 }
 
 .btn {

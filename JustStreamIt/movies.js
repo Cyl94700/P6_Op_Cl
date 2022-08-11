@@ -1,5 +1,6 @@
 const mainUrl = "http://localhost:8000/api/v1/titles/"
 
+//BestMovie()
 
 // Best movie
 
@@ -106,7 +107,29 @@ async function Categories(name, skip, total = 7) {
 
     return moviesData;
 }
+// Carousel controls
 
+function moveCarouselLeft(category) {
+
+    let carrouselContent = document.querySelector("#" + category + "-movies");
+    let carrouselLeftBtn = document.querySelector("#" + category + "-left");
+    let carrouselRightBtn = document.querySelector("#" + category + "-right");
+
+    carrouselContent.style.left = "-680px";
+    carrouselRightBtn.classList.remove("show");
+    carrouselLeftBtn.classList.add("show");
+}
+
+function moveCarouselRight(category) {
+
+    let carrouselContent = document.querySelector("#" + category + "-movies");
+    let carrouselLeftBtn = document.querySelector("#" + category + "-left");
+    let carrouselRightBtn = document.querySelector("#" + category + "-right");
+
+    carrouselContent.style.left = "0px";
+    carrouselRightBtn.classList.add("show");
+    carrouselLeftBtn.classList.remove("show");
+}
 async function buildCarousel(category, name, skip = 0) {
 
     let cat_name = name;
@@ -165,7 +188,26 @@ async function buildCarousel(category, name, skip = 0) {
     }
 
     const controls = document.createElement("div");
+    controls.classList.add("controls");
 
+    const leftButton = document.createElement('button');
+    leftButton.classList.add('btn');
+    leftButton.classList.add('left');
+    leftButton.setAttribute('aria-label', `${name} slide left`);
+    leftButton.setAttribute('id', `${name}-left`);
+    leftButton.setAttribute('onclick', `moveCarouselRight("${name}")`);
+    leftButton.innerHTML = '<i class="bi bi-chevron-left"></i>';
+    controls.appendChild(leftButton);
+
+    const rightButton = document.createElement('button');
+    rightButton.classList.add('btn');
+    rightButton.classList.add('right');
+    rightButton.classList.add('show');
+    rightButton.setAttribute('id', `${name}-right`);
+    rightButton.setAttribute('aria-label', `${name} slide right`);
+    rightButton.setAttribute('onclick', `moveCarouselLeft("${name}")`);
+    rightButton.innerHTML = '<i class="bi bi-chevron-right"></i>';
+    controls.appendChild(rightButton);
 
     carouselContainer.appendChild(carouselContent);
     carouselContainer.appendChild(controls);

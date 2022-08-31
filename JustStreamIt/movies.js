@@ -1,6 +1,6 @@
 const mainUrl = "http://localhost:8000/api/v1/titles/"
 
-//BestMovie()
+
 
 // Best movie
 
@@ -86,27 +86,66 @@ function ModalData(id) {
 
         })
 }
-// Categories
+// Categories best and Sci-Fi
 
-async function Categories(name, skip, total = 7) {
+async function CategoriesBestandSciencefiction(name, skip, total = 7) {
+        let results = await fetch(mainUrl + "?sort_by=-imdb_score&genre=" + name);
 
-    const results = await fetch(mainUrl + "?sort_by=-imdb_score&genre=" + name);
 
-    if (!results.ok)
+   if (!results.ok)
         return
-    const data = await results.json();
-    let moviesData = Array(...data.results);
-
-    if (skip > 0)
-        moviesData.splice(0, skip);
+        const data = await results.json();
+        let moviesData = Array(...data.results);
+   if (skip > 0)
+    moviesData.splice(0, skip);
 
     if (moviesData.length < total) {
         let results2 = await (await fetch(data.next)).json();
         moviesData.push(...Array(...results2.results).slice(0, total - moviesData.length));
-    }
+   }
 
-    return moviesData;
-}
+        return moviesData;
+   }
+
+// Category western
+
+async function Category2(name, skip, total = 7) {
+
+        let results = await fetch(mainUrl + "?sort_by=-imdb_score&country=Italy&genre=" + name);
+
+   if (!results.ok)
+        return
+        const data = await results.json();
+        let moviesData = Array(...data.results);
+   if (skip > 0)
+    moviesData.splice(0, skip);
+
+    if (moviesData.length < total) {
+        let results2 = await (await fetch(data.next)).json();
+        moviesData.push(...Array(...results2.results).slice(0, total - moviesData.length));
+   }
+
+        return moviesData;
+   }
+// Category Louis de Funès
+
+async function Category3(name, skip, total = 7) {
+
+        let results = await fetch(mainUrl + "?sort_by=-imdb_score&actor=Louis de Funès&genre=" + name);
+   if (!results.ok)
+        return
+        const data = await results.json();
+        let moviesData = Array(...data.results);
+   if (skip > 0)
+    moviesData.splice(0, skip);
+
+    if (moviesData.length < total) {
+        let results2 = await (await fetch(data.next)).json();
+        moviesData.push(...Array(...results2.results).slice(0, total - moviesData.length));
+   }
+
+        return moviesData;
+   }
 // Carousel controls
 
 function moveCarouselLeft(category) {
@@ -143,7 +182,15 @@ async function buildCarousel(category, name, skip = 0) {
     carousel.classList.add('container');
 
     const categoryTitle = document.createElement('h2');
-    categoryTitle.innerHTML = "Films les mieux notés";
+    if (name === "best")
+        categoryTitle.innerHTML = "Films les mieux notés";
+    if (name === "Sci-Fi")
+        categoryTitle.innerHTML = "Les meilleurs films de science-fiction";
+    if (name === "Western")
+        categoryTitle.innerHTML = "Les meilleurs western Spaghetti";
+    if (name === "Comedy")
+        categoryTitle.innerHTML = "Les meilleurs Louis de Funès";
+
     carousel.append(categoryTitle);
 
     const carouselContainer = document.createElement('div');
@@ -154,8 +201,14 @@ async function buildCarousel(category, name, skip = 0) {
     carouselContent.setAttribute("id", `${name}-movies`)
 
     document.querySelector('.carousels').appendChild(section);
-
-    const movies = await Categories(cat_name, skip);
+    let movies = ""
+    if (name === "best" || name === "Sci-Fi"){
+    movies = await CategoriesBestandSciencefiction(cat_name, skip);
+    }else if (name === "Western"){
+    movies = await Category2(cat_name, skip);
+    }else if (name === "Comedy"){
+    movies = await Category3(cat_name, skip);
+    }
 
     let i = 0;
     for (const movie of movies) {
@@ -218,6 +271,9 @@ async function buildCarousel(category, name, skip = 0) {
 
     window.addEventListener('load', () => {
     buildCarousel("Best-rated", "best", 0);
+    buildCarousel("Best-rated", "Sci-Fi", 0)
+    buildCarousel("Best-rated", "Western", 0)
+    buildCarousel("Best-rated", "Comedy", 0)
 
 
     BestMovie()

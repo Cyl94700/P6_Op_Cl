@@ -90,7 +90,7 @@ body {
     border-radius: 10px;
     margin: 5% auto;
     max-width: 1500px;
-    min-height: 350px;
+    max-height: 520px;
     padding: 30px 30px 60px 30px;
     width: 80%;
 }
@@ -102,6 +102,8 @@ body {
     height: 340px;
     margin-right: 120px;
     margin-top: 1%;
+    margin-left: 1%;
+    margin-bottom: 1%;
 }
 .modal_header {
     width: 300px;
@@ -121,7 +123,8 @@ body {
 .modal-movie-info {
     font-size: 15px;
     margin-left: 30px;
-    margin-right: 40%;
+    margin-right: 10%;
+    margin-bottom: 10%;
 }
 .metadata {
     font-size: 20px;
@@ -130,7 +133,8 @@ body {
 
 .modal-content p {
     display: inline;
-    line-height: 150%;
+    line-height: 90%;
+    margin-bottom: 10%;
 }
 
 strong {
@@ -139,6 +143,7 @@ strong {
 
 .plot {
     font-style: italic;
+
 }
 
 .close {

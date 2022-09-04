@@ -53,8 +53,16 @@ function ModalData(id) {
     fetch(mainUrl + id)
         .then(response => response.json())
         .then(data => {
-
-            document.getElementById('modal-cover').src = data["image_url"];
+            //image control
+            checkImg()
+            function checkImg(){
+	            var tester=new Image()
+	            tester.onload=function() {document.getElementById('modal-cover').src = data["image_url"];}
+	            tester.onerror=function() {document.getElementById('modal-cover').src =
+	            "./JustStreamIt/images/default_cover.jpg"}
+	            tester.src = data["image_url"];
+            }
+            //document.getElementById('modal-cover').src = data["image_url"];
             document.getElementById('modal-title').innerHTML = data["title"];
 
             document.getElementById('modal-year').innerHTML = data["year"];
@@ -99,7 +107,7 @@ async function CategoriesBestandSciencefiction(name, skip, total = 7) {
    if (skip > 0)
     moviesData.splice(0, skip);
 
-    if (moviesData.length < total) {
+   if (moviesData.length < total) {
         let results2 = await (await fetch(data.next)).json();
         moviesData.push(...Array(...results2.results).slice(0, total - moviesData.length));
    }
@@ -117,15 +125,16 @@ async function Category2(name, skip, total = 7) {
         return
         const data = await results.json();
         let moviesData = Array(...data.results);
-   if (skip > 0)
-    moviesData.splice(0, skip);
 
-    if (moviesData.length < total) {
+   if (skip > 0)
+        moviesData.splice(0, skip);
+
+   if (moviesData.length < total) {
         let results2 = await (await fetch(data.next)).json();
         moviesData.push(...Array(...results2.results).slice(0, total - moviesData.length));
    }
 
-        return moviesData;
+        return moviesData
    }
 // Category Louis de Funès
 
@@ -137,9 +146,9 @@ async function Category3(name, skip, total = 7) {
         const data = await results.json();
         let moviesData = Array(...data.results);
    if (skip > 0)
-    moviesData.splice(0, skip);
+        moviesData.splice(0, skip);
 
-    if (moviesData.length < total) {
+   if (moviesData.length < total) {
         let results2 = await (await fetch(data.next)).json();
         moviesData.push(...Array(...results2.results).slice(0, total - moviesData.length));
    }
@@ -169,6 +178,8 @@ function moveCarouselRight(category) {
     carrouselRightBtn.classList.add("show");
     carrouselLeftBtn.classList.remove("show");
 }
+
+
 async function buildCarousel(category, name, skip = 0) {
 
     let cat_name = name;
@@ -215,10 +226,18 @@ async function buildCarousel(category, name, skip = 0) {
         const box = document.createElement('div');
         box.classList.add("box");
         box.setAttribute("id", `${cat_name}${i + 1}`);
-
         const movieCover = document.createElement("img");
         movieCover.setAttribute("alt", movie.title);
-        movieCover.src = movie.image_url;
+        //image control
+        checkImg1()
+        function checkImg1(){
+	        var tester=new Image()
+	        tester.onload=function() {movieCover.src = movie.image_url;}
+	        tester.onerror=function() {movieCover.src = "./JustStreamIt/images/default_cover.jpg"}
+	        tester.src = movie.image_url;
+        }
+
+
         box.appendChild(movieCover);
 
         const overlay = document.createElement("div");
@@ -274,7 +293,6 @@ async function buildCarousel(category, name, skip = 0) {
     buildCarousel("Best-rated", "Sci-Fi", 0)
     buildCarousel("Best-rated", "Western", 0)
     buildCarousel("Best-rated", "Comedy", 0)
-
 
     BestMovie()
 });

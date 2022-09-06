@@ -1,6 +1,4 @@
-const mainUrl = "http://localhost:8000/api/v1/titles/"
-
-
+const mainUrl = "http://localhost:8000/api/v1/titles/";
 
 // Best movie
 
@@ -56,7 +54,7 @@ function ModalData(id) {
             //image control
             checkImg()
             function checkImg(){
-	            var tester=new Image()
+	            let tester=new Image()
 	            tester.onload=function() {document.getElementById('modal-cover').src = data["image_url"];}
 	            tester.onerror=function() {document.getElementById('modal-cover').src =
 	            "./JustStreamIt/images/default_cover.jpg"}
@@ -231,7 +229,7 @@ async function buildCarousel(category, name, skip = 0) {
         //image control
         checkImg1()
         function checkImg1(){
-	        var tester=new Image()
+	        let tester=new Image()
 	        tester.onload=function() {movieCover.src = movie.image_url;}
 	        tester.onerror=function() {movieCover.src = "./JustStreamIt/images/default_cover.jpg"}
 	        tester.src = movie.image_url;
@@ -268,7 +266,7 @@ async function buildCarousel(category, name, skip = 0) {
     leftButton.setAttribute('aria-label', `${name} slide left`);
     leftButton.setAttribute('id', `${name}-left`);
     leftButton.setAttribute('onclick', `moveCarouselRight("${name}")`);
-    leftButton.innerHTML = '<i class="bi bi-chevron-left"></i>';
+    leftButton.innerHTML = "<img src =./JustStreamIt/images/bi-chevron-left.png>";
     controls.appendChild(leftButton);
 
     const rightButton = document.createElement('button');
@@ -278,7 +276,7 @@ async function buildCarousel(category, name, skip = 0) {
     rightButton.setAttribute('id', `${name}-right`);
     rightButton.setAttribute('aria-label', `${name} slide right`);
     rightButton.setAttribute('onclick', `moveCarouselLeft("${name}")`);
-    rightButton.innerHTML = '<i class="bi bi-chevron-right"></i>';
+    rightButton.innerHTML = "<img src =./JustStreamIt/images/bi-chevron-right.png>";
     controls.appendChild(rightButton);
 
     carouselContainer.appendChild(carouselContent);

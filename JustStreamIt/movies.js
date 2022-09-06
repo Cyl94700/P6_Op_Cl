@@ -196,7 +196,7 @@ async function buildCarousel(category, name, skip = 0) {
     if (name === "Sci-Fi")
         categoryTitle.innerHTML = "Les meilleurs films de science-fiction";
     if (name === "Western")
-        categoryTitle.innerHTML = "Les meilleurs western Spaghetti";
+        categoryTitle.innerHTML = "Les meilleurs westerns Spaghetti";
     if (name === "Comedy")
         categoryTitle.innerHTML = "Les meilleurs Louis de Funès";
 
